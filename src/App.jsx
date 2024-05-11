@@ -15,12 +15,12 @@ const App = () => {
         passing
       </div>
 
-      <div className="ml-64 grid grid-cols-1 md:grid-cols-6">
-        <div className="md:col-span-2 h-screen border shadow-sm p-5">
+      <div className="ml-64 grid grid-cols-1 md:grid-cols-6 fixed">
+        <div className="md:col-span-2 h-screen border shadow-sm p-5 overflow-auto">
           {selectedIndex == 0 ? <IconController /> : <BackgoundController />}
         </div>
-        <div className="md:col-span-3">Icon Preview</div>
-        <div>Ads banner</div>
+        <div className="md:col-span-3 bg-green-200">Icon Preview</div>
+        <div className="bg-red-200">Ads banner</div>
       </div>
     </>
   );
