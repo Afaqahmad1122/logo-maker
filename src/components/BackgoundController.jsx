@@ -1,13 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Slider } from "./ui/slider";
 import ColorPickerController from "./ColorPickerController";
+import { UpdateStorageContext } from "@/context/UpdateStorageContext";
 
 const BackgoundController = () => {
-  const [rounded, setRounded] = useState(0);
-  const [padding, setPadding] = useState(0);
-  const [color, setColor] = useState("#000");
-
   const storagedValue = JSON.parse(localStorage.getItem("value"));
+
+  const [rounded, setRounded] = useState(
+    storagedValue ? storagedValue?.bgRounded : 0
+  );
+  const [padding, setPadding] = useState(
+    storagedValue ? storagedValue?.bgPadding : 0
+  );
+  const [color, setColor] = useState(
+    storagedValue ? storagedValue?.bgColor : "#000"
+  );
+  const { updateStorage, setUpdateStorage } = useContext(UpdateStorageContext);
 
   useEffect(() => {
     const updatedValue = {
@@ -16,9 +24,9 @@ const BackgoundController = () => {
       bgPadding: padding,
       bgColor: color,
     };
-
     localStorage.setItem("value", JSON.stringify(updatedValue));
-  });
+    setUpdateStorage(updatedValue);
+  }, [rounded, padding, color]);
 
   return (
     <div>
@@ -40,7 +48,7 @@ const BackgoundController = () => {
         </label>
         <Slider
           defaultValue={[0]}
-          max={512}
+          max={200}
           step={1}
           onValueChange={(event) => setPadding(event[0])}
         />
